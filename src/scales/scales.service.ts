@@ -1,37 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { CreateScaleDto } from './dto/create-scale.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Scale } from './entities/scale.entity';
+import { CreateScaleDto } from './dto/create-scale.dto';
+import { UpdateScaleDto } from './dto/update-scale.dto';
 
 @Injectable()
 export class ScalesService {
-  private scales: Scale[] = [];
+  constructor(
+    @InjectRepository(Scale)
+    private repo: Repository<Scale>,
+  ) {}
 
   create(dto: CreateScaleDto) {
-    const scale = {
-      id: Date.now(),
-      ...dto,
-    };
-
-    this.scales.push(scale);
-    return scale;
+    const scale = this.repo.create(dto);
+    return this.repo.save(scale);
   }
 
   findAll() {
-    return this.scales;
+    return this.repo.find();
   }
 
   findOne(id: number) {
-    return this.scales.find(s => s.id === id);
+    return this.repo.findOneBy({ id });
   }
 
-  update(id: number, dto: Partial<CreateScaleDto>) {
-    const index = this.scales.findIndex(s => s.id === id);
-    this.scales[index] = { ...this.scales[index], ...dto };
-    return this.scales[index];
+  update(id: number, dto: UpdateScaleDto) {
+    return this.repo.update(id, dto);
   }
 
   remove(id: number) {
-    this.scales = this.scales.filter(s => s.id !== id);
-    return { deleted: true };
+    return this.repo.delete(id);
   }
 }

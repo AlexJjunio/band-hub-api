@@ -1,10 +1,23 @@
-import { ScaleEvent } from "../enums/scale-event.enum";
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { ScaleEvent } from '../enums/scale-event.enum';
 
+@Entity('scales')
 export class Scale {
-    id: number;
-    event: ScaleEvent;
-    date: string;
-    time: string;
-    location: string;
-    created_by: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column({ type: 'enum', enum: ScaleEvent })
+  event!: ScaleEvent;
+
+  @Column({ type: 'date' })
+  date!: string;
+
+  @Column({ type: 'time' })
+  time!: string;
+
+  @Column()
+  location!: string;
+
+  @Column()
+  created_by!: number;
 }
