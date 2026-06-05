@@ -8,6 +8,7 @@ import { SongsModule } from './songs/songs.module';
 import { UsersModule } from './users/users.module';
 import { ScaleSongsModule } from './scale-songs/scale-songs.module';
 import { ScaleMembersModule } from './scale-members/scale-members.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   controllers: [AppController],
@@ -33,6 +34,7 @@ import { ScaleMembersModule } from './scale-members/scale-members.module';
     UsersModule,
     ScaleSongsModule,
     ScaleMembersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
