@@ -22,7 +22,10 @@ export class AuthService {
   }
 
   async login(email: string, password: string) {
-    const user = await this.usersRepo.findOneBy({ email });
+    const user = await this.usersRepo.findOne({
+      where: { email },
+      select: { id: true, email: true, password: true },
+    });
     if (!user) throw new UnauthorizedException('Credenciais inválidas');
 
     const valid = await bcrypt.compare(password, user.password);
