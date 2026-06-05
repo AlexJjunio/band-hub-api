@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { AuditEntity } from '../../common/entities/audit.entity';
 
 @Entity('scale_songs')
-export class ScaleSong {
+export class ScaleSong extends AuditEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

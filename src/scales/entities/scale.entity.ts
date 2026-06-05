@@ -1,8 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { ScaleEvent } from '../enums/scale-event.enum';
+import { BaseEntity } from '../../common/entities/base.entity';
 
 @Entity('scales')
-export class Scale {
+export class Scale extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -17,7 +18,4 @@ export class Scale {
 
   @Column()
   location!: string;
-
-  @Column()
-  created_by!: number;
 }
