@@ -7,11 +7,14 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ScaleSongsService } from './scale-songs.service';
 import { CreateScaleSongDto } from './dto/create-scale-song.dto';
 import { UpdateScaleSongDto } from './dto/update-scale-song.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('scale-songs')
 export class ScaleSongsController {
   constructor(private readonly scaleSongsService: ScaleSongsService) {}
