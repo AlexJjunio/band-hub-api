@@ -5,7 +5,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 // bootstrap the application (redeploy trigger)
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    origin: process.env.FRONTEND_URL?.split(',').map((url) => url.trim()) ?? true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Band Hub API')
