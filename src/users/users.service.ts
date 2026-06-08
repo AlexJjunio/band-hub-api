@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
+import { UserRole } from './enums/user-role.enum';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -17,8 +18,10 @@ export class UsersService {
     return this.repo.save(user);
   }
 
-  findAll() {
-    return this.repo.find();
+  // Filtro opcional por role — usado pelo front ao montar a escala
+  // (GET /users?role=musician retorna os músicos escaláveis com seus instrumentos).
+  findAll(role?: UserRole) {
+    return this.repo.find({ where: role ? { role } : {} });
   }
 
   findOne(id: number) {

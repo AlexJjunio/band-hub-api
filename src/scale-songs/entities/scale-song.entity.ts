@@ -1,7 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 import { AuditEntity } from '../../common/entities/audit.entity';
 
 @Entity('scale_songs')
+// Não pode haver duas músicas com a mesma ordem na mesma escala
+// (não faz sentido duas músicas serem "a primeira").
+@Unique(['scale_id', 'order'])
 export class ScaleSong extends AuditEntity {
   @PrimaryGeneratedColumn()
   id!: number;

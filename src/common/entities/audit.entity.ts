@@ -5,15 +5,15 @@ import {
 } from 'typeorm';
 
 export abstract class AuditEntity {
-  @CreateDateColumn()
-  createdAt!: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  created_at!: Date;
 
-  @UpdateDateColumn()
-  updatedAt!: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updated_at!: Date;
 
-  @Column({ nullable: true })
-  createdBy!: number;
+  @Column({ name: 'created_by', nullable: true })
+  created_by!: number;
 
-  @Column({ nullable: true })
-  updatedBy!: number;
+  @Column({ name: 'updated_by', nullable: true })
+  updated_by!: number;
 }

@@ -1,5 +1,5 @@
 export enum ScaleMemberStatus {
-  PENDING = 'PENDING',
-  CONFIRMED = 'CONFIRMED',
-  DECLINED = 'DECLINED',
+  PENDING = 'pending',
+  CONFIRMED = 'confirmed',
+  DECLINED = 'declined',
 }

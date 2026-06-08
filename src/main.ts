@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
@@ -8,6 +9,16 @@ async function bootstrap() {
   app.enableCors({
     origin: process.env.FRONTEND_URL?.split(',').map((url) => url.trim()) ?? true,
   });
+
+  // Validação global dos DTOs: rejeita campos desconhecidos, remove o que não
+  // está no DTO e transforma o payload em instância da classe.
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Band Hub API')

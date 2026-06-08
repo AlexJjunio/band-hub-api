@@ -1,4 +1,6 @@
 export enum UserRole {
-  LEADER = 'LEADER',
-  MUSICIAN = 'MUSICIAN',
+  TECH = 'tech',
+  LEADER = 'leader',
+  MUSICIAN = 'musician',
+  LISTENER = 'listener',
 }

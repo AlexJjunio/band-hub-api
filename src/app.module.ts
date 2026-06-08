@@ -20,13 +20,18 @@ import { AuthModule } from './auth/auth.module';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
         const dbUrl = config.get<string>('DATABASE_URL');
-        const isInternalNetwork = dbUrl?.includes('.internal');
+        // Bancos locais ou na rede interna do Railway não usam SSL.
+        const isLocalOrInternal =
+          !dbUrl ||
+          dbUrl.includes('.internal') ||
+          dbUrl.includes('localhost') ||
+          dbUrl.includes('127.0.0.1');
         return {
           type: 'postgres',
           url: dbUrl,
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
           synchronize: true,
-          ssl: isInternalNetwork ? false : { rejectUnauthorized: false },
+          ssl: isLocalOrInternal ? false : { rejectUnauthorized: false },
         };
       },
     }),

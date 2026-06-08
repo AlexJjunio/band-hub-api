@@ -1,4 +1,10 @@
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+
 export class CreateSongDto {
-    title: string;
-    youtube_url: string;
+  @IsString()
+  @IsNotEmpty()
+  title: string;
+
+  @IsUrl()
+  youtube_url: string;
 }

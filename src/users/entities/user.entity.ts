@@ -1,4 +1,5 @@
 import { UserRole } from '../enums/user-role.enum';
+import { Instrument } from '../../common/enums/instrument.enum';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { AuditEntity } from '../../common/entities/audit.entity';
 
@@ -22,4 +23,14 @@ export class User extends AuditEntity {
     default: UserRole.MUSICIAN,
   })
   role: UserRole;
+
+  // Instrumentos que o músico sabe tocar. Só relevante para role = musician;
+  // demais perfis ficam com array vazio. Ver docs/convencao-enums.md.
+  @Column({
+    type: 'enum',
+    enum: Instrument,
+    array: true,
+    default: [],
+  })
+  instruments: Instrument[];
 }
